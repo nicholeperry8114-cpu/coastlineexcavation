@@ -34,6 +34,15 @@ export type Database = {
           id?: string;
           metadata?: Json;
         };
+        Relationships: [
+          {
+            foreignKeyName: "activity_events_actor_id_fkey";
+            columns: ["actor_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       invoice_line_items: {
         Row: {
@@ -69,6 +78,15 @@ export type Database = {
           unit_price_cents?: number;
           updated_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "invoice_line_items_invoice_id_fkey";
+            columns: ["invoice_id"];
+            isOneToOne: false;
+            referencedRelation: "invoices";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       invoices: {
         Row: {
@@ -128,6 +146,29 @@ export type Database = {
           updated_at?: string;
           updated_by?: string | null;
         };
+        Relationships: [
+          {
+            foreignKeyName: "invoices_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "invoices_job_id_fkey";
+            columns: ["job_id"];
+            isOneToOne: false;
+            referencedRelation: "jobs";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "invoices_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       jobs: {
         Row: {
@@ -175,6 +216,29 @@ export type Database = {
           updated_at?: string;
           updated_by?: string | null;
         };
+        Relationships: [
+          {
+            foreignKeyName: "jobs_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "jobs_proposal_id_fkey";
+            columns: ["proposal_id"];
+            isOneToOne: true;
+            referencedRelation: "proposals";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "jobs_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       lead_attachments: {
         Row: {
@@ -210,6 +274,22 @@ export type Database = {
           storage_path?: string;
           uploaded_by?: string | null;
         };
+        Relationships: [
+          {
+            foreignKeyName: "lead_attachments_lead_id_fkey";
+            columns: ["lead_id"];
+            isOneToOne: false;
+            referencedRelation: "leads";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "lead_attachments_uploaded_by_fkey";
+            columns: ["uploaded_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       leads: {
         Row: {
@@ -260,6 +340,22 @@ export type Database = {
           updated_at?: string;
           updated_by?: string | null;
         };
+        Relationships: [
+          {
+            foreignKeyName: "leads_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "leads_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       profiles: {
         Row: {
@@ -286,6 +382,7 @@ export type Database = {
           role?: Database["public"]["Enums"]["admin_role"];
           updated_at?: string;
         };
+        Relationships: [];
       };
       proposal_line_items: {
         Row: {
@@ -321,6 +418,15 @@ export type Database = {
           unit_price_cents?: number;
           updated_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "proposal_line_items_proposal_id_fkey";
+            columns: ["proposal_id"];
+            isOneToOne: false;
+            referencedRelation: "proposals";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       proposals: {
         Row: {
@@ -383,6 +489,29 @@ export type Database = {
           updated_at?: string;
           updated_by?: string | null;
         };
+        Relationships: [
+          {
+            foreignKeyName: "proposals_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "proposals_lead_id_fkey";
+            columns: ["lead_id"];
+            isOneToOne: false;
+            referencedRelation: "leads";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "proposals_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
     };
     Views: Record<string, never>;
